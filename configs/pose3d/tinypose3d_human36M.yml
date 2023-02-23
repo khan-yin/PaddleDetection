@@ -55,17 +55,29 @@ OptimizerBuilder:
 #####data
 TrainDataset:
   !Pose3DDataset
+<<<<<<< HEAD
     dataset_dir: dataset/traindata/
     image_dirs: ["human3.6m"]
     anno_list:  ['pose3d/Human3.6m_train.json']
+=======
+    dataset_dir: Human3.6M
+    image_dirs: ["Images"]
+    anno_list:  ['Human3.6m_train.json']
+>>>>>>> [cherry-pick]cherry-pick of petr and tinypose3d_human3.6m (#7816)
     num_joints: *num_joints
     test_mode: False
 
 EvalDataset:
   !Pose3DDataset
+<<<<<<< HEAD
     dataset_dir: dataset/traindata/
     image_dirs: ["human3.6m"]
     anno_list:  ['pose3d/Human3.6m_valid.json']
+=======
+    dataset_dir: Human3.6M
+    image_dirs: ["Images"]
+    anno_list: ['Human3.6m_valid.json']
+>>>>>>> [cherry-pick]cherry-pick of petr and tinypose3d_human3.6m (#7816)
     num_joints: *num_joints
     test_mode: True
 

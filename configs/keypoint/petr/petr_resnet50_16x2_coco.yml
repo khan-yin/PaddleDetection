@@ -245,7 +245,12 @@ EvalReader:
 TestReader:
   sample_transforms:
     - Decode: {}
+<<<<<<< HEAD
     - EvalAffine: {size: 800}
+=======
+    - EvalAffine:
+        size: *trainsize
+>>>>>>> [cherry-pick]cherry-pick of petr and tinypose3d_human3.6m (#7816)
     - NormalizeImage:
         mean: *global_mean
         std: *global_std
