@@ -35,9 +35,13 @@ from . import convnext
 from . import vision_transformer
 from . import mobileone
 from . import trans_encoder
+<<<<<<< HEAD
 from . import focalnet
 from . import vit_mae
 from . import hgnet_v2
+=======
+from . import clrnet_resnet
+>>>>>>> feat: add CLRNet
 
 from .vgg import *
 from .resnet import *
@@ -66,3 +70,4 @@ from .focalnet import *
 from .vitpose import *
 from .vit_mae import *
 from .hgnet_v2 import *
+from .clrnet_resnet import *

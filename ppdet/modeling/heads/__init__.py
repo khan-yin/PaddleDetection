@@ -39,7 +39,11 @@ from . import yolof_head
 from . import ppyoloe_contrast_head
 from . import centertrack_head
 from . import sparse_roi_head
+<<<<<<< HEAD
 from . import vitpose_head
+=======
+from . import clrnet_head
+>>>>>>> feat: add CLRNet
 
 from .bbox_head import *
 from .mask_head import *
@@ -70,3 +74,4 @@ from .centertrack_head import *
 from .sparse_roi_head import *
 from .petr_head import *
 from .vitpose_head import *
+from .clrnet_head import *
