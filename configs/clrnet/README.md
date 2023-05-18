@@ -17,8 +17,27 @@ English | [简体中文](README_cn.md)
 
 | backbone       | mF1 | F1@50   |    F1@75    | download | config |
 | :--------------| :------- |  :----: | :------: | :----: |:-----: |
-| ResNet-18         | 55.39 |  79.56  |    62.83   | [model]() | [config](./clr_resnet18_culane.yml) |
+| ResNet-18         | 54.98 |  79.46  |    62.10   | [model]() | [config](./clr_resnet18_culane.yml) |
 
+
+### Training
+```shell
+export CUDA_VISIBLE_DEVICES=0,1,2,3
+python -m paddle.distributed.launch --gpus 0,1,2,3 tools/train.py -c configs/clrnet/clr_resnet18_culane.yml
+```
+
+### Evaluation 
+```shell
+mkdir evaluation
+python tools/eval.py -c configs/clrnet/clr_resnet18_culane.yml -o weights=output/clr_resnet18_culane/model_final.pdparams output_eval=evaluation/ use_gpu=true
+```
+
+### Inference
+```shell
+python tools/infer_culane.py -c configs/clrnet/clr_resnet18_culane.yml -o weights=output/clr_resnet18_culane/model_final.pdparams use_gpu=true --infer_img=demo/lane00000.jpg
+```
+The demo result is as shown below：
+![](../../demo/lane00000_result.jpg)
 
 ## Citations
 ```

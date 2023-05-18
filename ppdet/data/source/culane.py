@@ -157,8 +157,8 @@ class CULaneDataSet(DetDataset):
         img = cv2.imread(data_info['img_path'])
         img = img[self.cut_height:, :, :]
         sample = data_info.copy()
-        sample.update({'img': img})
-        img_org = sample['img']
+        sample.update({'image': img})
+        img_org = sample['image']
 
         if self.training:
             label = cv2.imread(sample['mask_path'], cv2.IMREAD_UNCHANGED)
@@ -184,7 +184,7 @@ class CULaneDataSet(DetDataset):
         sample['img_name'] = data_info['img_name']
         sample['im_id'] = np.array([idx])
 
-        sample['img'] = sample['img'].copy().astype(np.uint8)
+        sample['image'] = sample['image'].copy().astype(np.uint8)
         sample['lanes'] = lane_to_linestrings(sample['lanes'])
         sample['lanes'] = LineStringsOnImage(sample['lanes'],
                                               shape=img_org.shape)

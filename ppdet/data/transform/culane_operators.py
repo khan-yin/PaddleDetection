@@ -79,10 +79,10 @@ class TrainProcess(BaseOperator):
         
     def apply(self, sample, context=None):
         img, line_strings, seg = self.iaa_transform(
-                image=sample['img'],
+                image=sample['image'],
                 line_strings=sample['lanes'],
                 segmentation_maps=sample['mask'])
-        sample['img'] = img
+        sample['image'] = img
         sample['lanes'] = line_strings
         sample['mask'] = seg
         return sample
@@ -121,8 +121,8 @@ class CULaneDataProcess(BaseOperator):
                     exit()
                     
         
-        sample['img'] = sample['img'].astype(np.float32) / 255.
-        data['img'] = sample['img'].transpose(2,0,1)
+        sample['image'] = sample['image'].astype(np.float32) / 255.
+        data['image'] = sample['image'].transpose(2,0,1)
         data['lane_line'] = label
         data['seg'] = sample['seg']
         data['full_img_path'] = sample['full_img_path']
@@ -149,17 +149,17 @@ class CULaneResize(BaseOperator):
         transform = iaa.Sometimes(self.prob, iaa.Resize({"height": self.img_h, "width": self.img_w}))
         if 'mask' in sample.keys():
             img, line_strings, seg = transform(
-                image=sample['img'],
+                image=sample['image'],
                 line_strings=sample['lanes'],
                 segmentation_maps=sample['mask'])
-            sample['img'] = img
+            sample['image'] = img
             sample['lanes'] = line_strings
             sample['mask'] = seg
         else:
             img, line_strings = transform(
-                image=sample['img'].copy().astype(np.uint8),
+                image=sample['image'].copy().astype(np.uint8),
                 line_strings=sample['lanes'])
-            sample['img'] = img
+            sample['image'] = img
             sample['lanes'] = line_strings
         
         return sample
@@ -174,17 +174,17 @@ class HorizontalFlip(BaseOperator):
         transform = iaa.Sometimes(self.prob, iaa.HorizontalFlip(1.0))
         if 'mask' in sample.keys():
             img, line_strings, seg = transform(
-                image=sample['img'],
+                image=sample['image'],
                 line_strings=sample['lanes'],
                 segmentation_maps=sample['mask'])
-            sample['img'] = img
+            sample['image'] = img
             sample['lanes'] = line_strings
             sample['mask'] = seg
         else:
             img, line_strings = transform(
-                image=sample['img'],
+                image=sample['image'],
                 line_strings=sample['lanes'])
-            sample['img'] = img
+            sample['image'] = img
             sample['lanes'] = line_strings
         
         return sample
@@ -198,17 +198,17 @@ class ChannelShuffle(BaseOperator):
         transform = iaa.Sometimes(self.prob, iaa.ChannelShuffle(1.0))
         if 'mask' in sample.keys():
             img, line_strings, seg = transform(
-                image=sample['img'],
+                image=sample['image'],
                 line_strings=sample['lanes'],
                 segmentation_maps=sample['mask'])
-            sample['img'] = img
+            sample['image'] = img
             sample['lanes'] = line_strings
             sample['mask'] = seg
         else:
             img, line_strings = transform(
-                image=sample['img'],
+                image=sample['image'],
                 line_strings=sample['lanes'])
-            sample['img'] = img
+            sample['image'] = img
             sample['lanes'] = line_strings
         
         return sample
@@ -225,17 +225,17 @@ class MultiplyAndAddToBrightness(BaseOperator):
         transform = iaa.Sometimes(self.prob, iaa.MultiplyAndAddToBrightness(mul=self.mul,add=self.add))
         if 'mask' in sample.keys():
             img, line_strings, seg = transform(
-                image=sample['img'],
+                image=sample['image'],
                 line_strings=sample['lanes'],
                 segmentation_maps=sample['mask'])
-            sample['img'] = img
+            sample['image'] = img
             sample['lanes'] = line_strings
             sample['mask'] = seg
         else:
             img, line_strings = transform(
-                image=sample['img'],
+                image=sample['image'],
                 line_strings=sample['lanes'])
-            sample['img'] = img
+            sample['image'] = img
             sample['lanes'] = line_strings
         
         return sample
@@ -250,17 +250,17 @@ class AddToHueAndSaturation(BaseOperator):
         transform = iaa.Sometimes(self.prob, iaa.AddToHueAndSaturation(value=self.value))
         if 'mask' in sample.keys():
             img, line_strings, seg = transform(
-                image=sample['img'],
+                image=sample['image'],
                 line_strings=sample['lanes'],
                 segmentation_maps=sample['mask'])
-            sample['img'] = img
+            sample['image'] = img
             sample['lanes'] = line_strings
             sample['mask'] = seg
         else:
             img, line_strings = transform(
-                image=sample['img'],
+                image=sample['image'],
                 line_strings=sample['lanes'])
-            sample['img'] = img
+            sample['image'] = img
             sample['lanes'] = line_strings
         
         return sample
@@ -280,17 +280,17 @@ class OneOfBlur(BaseOperator):
 
         if 'mask' in sample.keys():
             img, line_strings, seg = transform(
-                image=sample['img'],
+                image=sample['image'],
                 line_strings=sample['lanes'],
                 segmentation_maps=sample['mask'])
-            sample['img'] = img
+            sample['image'] = img
             sample['lanes'] = line_strings
             sample['mask'] = seg
         else:
             img, line_strings = transform(
-                image=sample['img'],
+                image=sample['image'],
                 line_strings=sample['lanes'])
-            sample['img'] = img
+            sample['image'] = img
             sample['lanes'] = line_strings
         
         return sample
@@ -313,17 +313,17 @@ class CULaneAffine(BaseOperator):
         
         if 'mask' in sample.keys():
             img, line_strings, seg = transform(
-                image=sample['img'],
+                image=sample['image'],
                 line_strings=sample['lanes'],
                 segmentation_maps=sample['mask'])
-            sample['img'] = img
+            sample['image'] = img
             sample['lanes'] = line_strings
             sample['mask'] = seg
         else:
             img, line_strings = transform(
-                image=sample['img'],
+                image=sample['image'],
                 line_strings=sample['lanes'])
-            sample['img'] = img
+            sample['image'] = img
             sample['lanes'] = line_strings
         
         return sample

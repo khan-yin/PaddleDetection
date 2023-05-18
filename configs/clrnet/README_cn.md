@@ -17,9 +17,26 @@
 
 | 骨架网络       | mF1 | F1@50   |    F1@75    | 下载链接 | 配置文件 |
 | :--------------| :------- |  :----: | :------: | :----: |:-----: |
-| ResNet-18         | 55.39 |  79.56  |    62.83   | [下载链接]() | [配置文件](./clr_resnet18_culane.yml) |
+| ResNet-18         | 54.98 |  79.46  |    62.10   | [下载链接]() | [配置文件](./clr_resnet18_culane.yml) |
 
+### 训练
+```shell
+export CUDA_VISIBLE_DEVICES=0,1,2,3
+python -m paddle.distributed.launch --gpus 0,1,2,3 tools/train.py -c configs/clrnet/clr_resnet18_culane.yml
+```
 
+### 评估
+```shell
+mkdir evaluation
+python tools/eval.py -c configs/clrnet/clr_resnet18_culane.yml -o weights=output/clr_resnet18_culane/model_final.pdparams output_eval=evaluation/ use_gpu=true
+```
+
+### 预测
+```shell
+python tools/infer_culane.py -c configs/clrnet/clr_resnet18_culane.yml -o weights=output/clr_resnet18_culane/model_final.pdparams use_gpu=true --infer_img=demo/lane00000.jpg
+```
+结果如下图：
+![](../../demo/lane00000_result.jpg)
 ## 引用
 ```
 @InProceedings{Zheng_2022_CVPR,
