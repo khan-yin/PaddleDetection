@@ -1,7 +1,6 @@
 from ppdet.core.workspace import register,serializable
 import cv2
 import os
-import math
 import numpy as np
 import os.path as osp
 from ppdet.data.source.dataset import DetDataset
@@ -12,10 +11,11 @@ from scipy.interpolate import InterpolatedUnivariateSpline
 from ppdet.data.culane_utils import lane_to_linestrings, linestrings_to_lanes, sample_lane, filter_lane, transform_annotation
 import pickle as pkl
 from ppdet.utils.logger import setup_logger
-# Copyright (c) Open-MMLab. All rights reserved.
-import functools
-import paddle
-import ppdet.metrics.culane_metrics as culane_metrics
+try:
+    from collections.abc import Sequence
+except Exception:
+    from collections import Sequence
+from .dataset import DetDataset, _make_dataset, _is_valid_file
 
 logger = setup_logger(__name__)
 
@@ -28,13 +28,15 @@ class CULaneDataSet(DetDataset):
                 cut_height,
                 list_path,
                 split='train',
-                data_fields=['image']
+                data_fields=['image'],
+                video_file=None,
+                frame_rate=-1,
                  ):
         super(CULaneDataSet,self).__init__(
             dataset_dir=dataset_dir,
             cut_height=cut_height,
             split=split,
-            data_fields=data_fields,
+            data_fields=data_fields
         )
         self.dataset_dir = dataset_dir
         self.list_path = osp.join(dataset_dir, list_path)
@@ -43,13 +45,22 @@ class CULaneDataSet(DetDataset):
         self.split = split
         self.training = 'train' in split       
         self.data_infos = []
-        self.parse_dataset()
+        self.video_file = video_file
+        self.frame_rate = frame_rate
+        self._imid2path = {}
+        self.predict_dir = None
     
     def __len__(self):
         return len(self.data_infos)
+    
+    def check_or_download_dataset(self):
+        return 
 
     def parse_dataset(self):
         logger.info('Loading CULane annotations...')
+        if self.predict_dir is not None:
+            logger.info('switch to predict mode')
+            return
         # Waiting for the dataset to load is tedious, let's cache it
         os.makedirs('cache', exist_ok=True)
         cache_path = 'cache/culane_paddle_{}.pkl'.format(self.split)
@@ -105,7 +116,42 @@ class CULaneDataSet(DetDataset):
 
         return infos
     
+    def set_images(self, images):
+        self.predict_dir = images
+        self.data_infos = self._load_images()
+
+    def _find_images(self):
+        predict_dir = self.predict_dir
+        if not isinstance(predict_dir, Sequence):
+            predict_dir = [predict_dir]
+        images = []
+        for im_dir in predict_dir:
+            if os.path.isdir(im_dir):
+                im_dir = os.path.join(self.predict_dir, im_dir)
+                images.extend(_make_dataset(im_dir))
+            elif os.path.isfile(im_dir) and _is_valid_file(im_dir):
+                images.append(im_dir)
+        return images
+
+    def _load_images(self):
+        images = self._find_images()
+        ct = 0
+        records = []
+        for image in images:
+            assert image != '' and os.path.isfile(image), \
+                    "Image {} not found".format(image)
+            if self.sample_num > 0 and ct >= self.sample_num:
+                break
+            rec = {'im_id': np.array([ct]), "img_path": os.path.abspath(image), "img_name": os.path.basename(image), "lanes":[]}
+            self._imid2path[ct] = image
+            ct += 1
+            records.append(rec)
+        assert len(records) > 0, "No image file found"
+        return records
     
+    def get_imid2path(self):
+        return self._imid2path
+
     def __getitem__(self,idx):
         data_info = self.data_infos[idx]
         img = cv2.imread(data_info['img_path'])
@@ -138,7 +184,7 @@ class CULaneDataSet(DetDataset):
         sample['img_name'] = data_info['img_name']
         sample['im_id'] = np.array([idx])
 
-        
+        sample['img'] = sample['img'].copy().astype(np.uint8)
         sample['lanes'] = lane_to_linestrings(sample['lanes'])
         sample['lanes'] = LineStringsOnImage(sample['lanes'],
                                               shape=img_org.shape)

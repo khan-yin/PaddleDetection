@@ -325,8 +325,8 @@ class CULaneMetric(Metric):
     
 
     def update(self, inputs, outputs):
-        assert len(inputs['img_name']) == len(outputs)
-        self.predictions.extend(outputs)
+        assert len(inputs['img_name']) == len(outputs['lanes'])
+        self.predictions.extend(outputs['lanes'])
         self.img_names.extend(inputs['img_name'])
         self.lanes.extend(inputs['lane_line'])
 

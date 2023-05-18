@@ -2,7 +2,7 @@ metric: CULaneMetric
 num_classes: 5 # 4 lanes + background
 
 cut_height: &cut_height 270
-dataset_dir: &dataset_dir dataset/CULane
+dataset_dir: &dataset_dir /home/yinkh/mycode/data/CULane
 
 TrainDataset:
   name: CULaneDataSet
@@ -15,7 +15,7 @@ TrainDataset:
 EvalDataset:
   name: CULaneDataSet
   dataset_dir: *dataset_dir
-  list_path: 'list/val.txt'
+  list_path: 'list/test.txt'
   split: test
   cut_height: *cut_height
 

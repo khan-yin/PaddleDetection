@@ -52,6 +52,7 @@ class CLRNet(BaseArch):
         else:
             output = self.heads(neck_feats)
             output = self.heads.get_lanes(output)
+            output = {"lanes": output, "img_path": self.inputs['full_img_path'], "img_name": self.inputs['img_name']}
         
         return output
             
