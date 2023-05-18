@@ -42,7 +42,7 @@ class CLRNet(BaseArch):
 
     def _forward(self):
         # Backbone
-        body_feats = self.backbone(self.inputs['img'])
+        body_feats = self.backbone(self.inputs['image'])
         # neck
         neck_feats = self.neck(body_feats)
         # CRL Head
