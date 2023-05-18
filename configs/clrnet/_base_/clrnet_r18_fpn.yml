@@ -1,10 +1,4 @@
 architecture: CLRNet
-# pretrain_weights: https://paddledet.bj.bcebos.com/models/pretrained/ResNet50_cos_pretrained.pdparams
-
-sample_y: 
-  start: 589
-  end: 230
-  step: -20
 
 CLRNet:
   backbone: CLRResNet
@@ -29,7 +23,7 @@ CLRHead:
   sample_points: 36
   loss: CLRNetLoss
   conf_threshold: 0.4
-  nms_thres: 0.5
+  nms_thres: 0.8
 
 CLRNetLoss:
   cls_loss_weight : 2.0
@@ -39,3 +33,9 @@ CLRNetLoss:
   refine_layers : 3
   ignore_label: 255
   bg_weight: 0.4
+
+# for visualize lane detection results
+sample_y: 
+  start: 589
+  end: 230
+  step: -20
