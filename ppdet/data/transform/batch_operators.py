@@ -1108,7 +1108,6 @@ class PadGT(BaseOperator):
         self.pad_img = pad_img
         self.minimum_gtnum = minimum_gtnum
 
-<<<<<<< HEAD
     def _impad(self,
                img: np.ndarray,
                *,
@@ -1116,14 +1115,6 @@ class PadGT(BaseOperator):
                padding=None,
                pad_val=0,
                padding_mode='constant') -> np.ndarray:
-=======
-    def _impad(self, img: np.ndarray,
-            *,
-            shape = None,
-            padding = None,
-            pad_val = 0,
-            padding_mode = 'constant') -> np.ndarray:
->>>>>>> [cherry-pick]cherry-pick of petr and tinypose3d_human3.6m (#7816)
         """Pad the given image to a certain shape or pad on all sides with
         specified padding mode and padding value.
 
@@ -1179,11 +1170,7 @@ class PadGT(BaseOperator):
             padding = (padding, padding, padding, padding)
         else:
             raise ValueError('Padding must be a int or a 2, or 4 element tuple.'
-<<<<<<< HEAD
                              f'But received {padding}')
-=======
-                            f'But received {padding}')
->>>>>>> [cherry-pick]cherry-pick of petr and tinypose3d_human3.6m (#7816)
 
         # check padding mode
         assert padding_mode in ['constant', 'edge', 'reflect', 'symmetric']
@@ -1208,17 +1195,10 @@ class PadGT(BaseOperator):
     def checkmaxshape(self, samples):
         maxh, maxw = 0, 0
         for sample in samples:
-<<<<<<< HEAD
             h, w = sample['im_shape']
             if h > maxh:
                 maxh = h
             if w > maxw:
-=======
-            h,w = sample['im_shape']
-            if h>maxh:
-                maxh = h
-            if w>maxw:
->>>>>>> [cherry-pick]cherry-pick of petr and tinypose3d_human3.6m (#7816)
                 maxw = w
         return (maxh, maxw)
 
@@ -1267,12 +1247,8 @@ class PadGT(BaseOperator):
                 sample['difficult'] = pad_diff
             if 'gt_joints' in sample:
                 num_joints = sample['gt_joints'].shape[1]
-<<<<<<< HEAD
                 pad_gt_joints = np.zeros(
                     (num_max_boxes, num_joints, 3), dtype=np.float32)
-=======
-                pad_gt_joints = np.zeros((num_max_boxes, num_joints, 3), dtype=np.float32)
->>>>>>> [cherry-pick]cherry-pick of petr and tinypose3d_human3.6m (#7816)
                 if num_gt > 0:
                     pad_gt_joints[:num_gt] = sample['gt_joints']
                 sample['gt_joints'] = pad_gt_joints

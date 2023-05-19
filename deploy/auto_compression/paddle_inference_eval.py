@@ -385,11 +385,6 @@ def eval(predictor, val_loader, metric, rerun_flag=False):
     map_res = metric.get_results()
     metric.reset()
     time_avg = predict_time / sample_nums
-<<<<<<< HEAD
-=======
-    print("[Benchmark]Avg cpu_mem:{} MB, avg gpu_mem: {} MB".format(
-        cpu_mems / sample_nums, gpu_mems / sample_nums))
->>>>>>> [cherry-pick]PPyolo sod qat (#7990) (#8000)
     print("[Benchmark]Inference time(ms): min={}, max={}, avg={}".format(
         round(time_min * 1000, 2),
         round(time_max * 1000, 1), round(time_avg * 1000, 1)))
