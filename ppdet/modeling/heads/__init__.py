@@ -40,10 +40,14 @@ from . import ppyoloe_contrast_head
 from . import centertrack_head
 from . import sparse_roi_head
 <<<<<<< HEAD
+<<<<<<< HEAD
 from . import vitpose_head
 =======
 from . import clrnet_head
 >>>>>>> feat: add CLRNet
+=======
+from . import clrnet_head
+>>>>>>> 2bd8395842559fcef1ca529e525838977855073a
 
 from .bbox_head import *
 from .mask_head import *
@@ -75,3 +79,4 @@ from .sparse_roi_head import *
 from .petr_head import *
 from .vitpose_head import *
 from .clrnet_head import *
+

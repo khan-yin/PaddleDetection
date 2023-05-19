@@ -13,10 +13,14 @@
 ## 📣 Updates
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 - 🔥🔥🔥 PP-YOLOE-PLUS-Tiny was launched for Jetson deploy, which has achieved 20fps while four rtsp streams work at the same time; PP-Vehicle was launched with retrograde and lane line press.
 =======
 - 🔥🔥🔥 **PP-YOLOE-PLUS-Tiny was launched for Jetson deploy, which has achieved 20fps while four rtsp streams work at the same time; PP-Vehicle was launched with retrograde and lane line press.**
 >>>>>>> cherry-pick of pipeline docs (#7772)
+=======
+- 🔥🔥🔥 **PP-YOLOE-PLUS-Tiny was launched for Jetson deploy, which has achieved 20fps while four rtsp streams work at the same time; PP-Vehicle was launched with retrograde and lane line press.**
+>>>>>>> 2bd8395842559fcef1ca529e525838977855073a
 - 🔥 **2022.8.20：PP-Vehicle was first launched with four major toolbox for vehicle analysis，and it also provide detailed documentation for user to train with their own datas and model optimize.**
 - 🔥 2022.7.13：PP-Human v2 launched with a full upgrade of four industrial features: behavior analysis, attributes recognition, visitor traffic statistics and ReID. It provides a strong core algorithm for pedestrian detection, tracking and attribute analysis with a simple and detailed development process and model optimization strategy.
 - 2022.4.18: Add  PP-Human practical tutorials, including training, deployment, and action expansion. Details for AIStudio project please see [Link](https://aistudio.baidu.com/aistudio/projectdetail/3842982)

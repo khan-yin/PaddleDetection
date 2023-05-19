@@ -36,12 +36,16 @@ from . import vision_transformer
 from . import mobileone
 from . import trans_encoder
 <<<<<<< HEAD
+<<<<<<< HEAD
 from . import focalnet
 from . import vit_mae
 from . import hgnet_v2
 =======
 from . import clrnet_resnet
 >>>>>>> feat: add CLRNet
+=======
+from . import clrnet_resnet
+>>>>>>> 2bd8395842559fcef1ca529e525838977855073a
 
 from .vgg import *
 from .resnet import *
