@@ -20,6 +20,12 @@
 | ResNet-18         | 54.98 |  79.46  |    62.10   | [下载链接]() | [配置文件](./clr_resnet18_culane.yml) |
 
 ### 训练
+- GPU单卡训练
+```shell
+export CUDA_VISIBLE_DEVICES=0
+python tools/train.py -c configs/clrnet/clr_resnet18_culane.yml
+```
+- GPU多卡训练
 ```shell
 export CUDA_VISIBLE_DEVICES=0,1,2,3
 python -m paddle.distributed.launch --gpus 0,1,2,3 tools/train.py -c configs/clrnet/clr_resnet18_culane.yml

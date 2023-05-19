@@ -21,6 +21,12 @@ English | [简体中文](README_cn.md)
 
 
 ### Training
+- single GPU
+```shell
+export CUDA_VISIBLE_DEVICES=0
+python tools/train.py -c configs/clrnet/clr_resnet18_culane.yml
+```
+- multi GPU
 ```shell
 export CUDA_VISIBLE_DEVICES=0,1,2,3
 python -m paddle.distributed.launch --gpus 0,1,2,3 tools/train.py -c configs/clrnet/clr_resnet18_culane.yml
